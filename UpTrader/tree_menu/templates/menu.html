@@ -1,0 +1,14 @@
+<ul>
+  {% for node in nodes %}
+    <li {% if node.item.id == active_item_id %} class="active"{% elif node.item.id in active_ids %} class="expanded"{% endif %}>
+      <a href="{{ node.item.resolved_url }}">{{ node.item.title }}</a>
+      {% if node.children %}
+        {% include 'tree_menu/menu.html' with
+           nodes=node.children
+           active_item_id=active_item_id
+           active_ids=active_ids
+           request=request only %}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
